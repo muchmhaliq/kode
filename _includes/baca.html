@@ -3,28 +3,7 @@
 		<div class="form-group">
 			<input type="text" class="form-control" readonly="" v-model='link' name="">
 		</div>
-		<pre><code>&lt;template id="beranda"&gt;
- &lt;div&gt;
-  &lt;form&gt;
-   &lt;div class="form-group"&gt;
-    &lt;textarea class="form-control isi" placeholder="Masukkan kodemu"&gt;&lt;/textarea&gt;
-   &lt;/div&gt;
-   &lt;div class="form-group"&gt;
-    &lt;input type="submit" value="Submit" class="btn btn-success" name=""&gt;
-   &lt;/div&gt;
-  &lt;/form&gt;
- &lt;/div&gt;
-&lt;/template&gt;
-&lt;script type="text/javascript"&gt;
- beranda = {
-  template: '#beranda',
-  mounted(){
-   tinggi_isi = () =&gt; document.querySelector('.isi').style.height = window.innerHeight - 100 + 'px';
-   tinggi_isi();
-   window.addEventListener('resize', tinggi_isi);
-  }
- }
-&lt;/script&gt;</code></pre>
+		<pre><code v-text='kode'></code></pre>
 	</div>
 </template>
 <script type="text/javascript">
@@ -32,13 +11,19 @@
 		template: '#baca',
 		data(){
 			return {
-				link: location.href
+				link: location.href,
+				kode: ''
 			}
 		},
 		mounted(){
-		  document.querySelectorAll('pre code').forEach((block) => {
-		    hljs.highlightBlock(block);
-		  });
+			fetch(`${api}/kode.php/baca/${this.$route.params.slug}`).then(x => x.json()).then(data => {
+				this.kode = data;
+				this.$nextTick(() => {
+					document.querySelectorAll('pre code').forEach((block) => {
+						hljs.highlightBlock(block);
+					});
+				});
+			});
 		}
 	}
 </script>

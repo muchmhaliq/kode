@@ -1,8 +1,8 @@
 <template id="beranda">
 	<div>
-		<form>
+		<form @submit.prevent='tulis()'>
 			<div class="form-group">
-				<textarea class="form-control isi" placeholder="Masukkan kodemu"></textarea>
+				<textarea class="form-control isi" v-model='kode' placeholder="Masukkan kodemu"></textarea>
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Submit" class="btn btn-success" name="">
@@ -13,6 +13,21 @@
 <script type="text/javascript">
 	beranda = {
 		template: '#beranda',
+		data(){
+			return {
+				kode: ''
+			}
+		},
+		methods: {
+			tulis(){
+				body = new FormData;
+				body.append('kode', this.kode);
+				fetch(`${api}/kode.php/tambah`, {
+					method: 'post',
+					body
+				}).then(x => x.json()).then(data => this.$router.push(`/${data}`));
+			}
+		},
 		mounted(){
 			tinggi_isi = () => document.querySelector('.isi').style.height = window.innerHeight - 100 + 'px';
 			tinggi_isi();
