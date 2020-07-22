@@ -32,6 +32,11 @@
 			tinggi_isi = () => document.querySelector('.isi').style.height = window.innerHeight - 100 + 'px';
 			tinggi_isi();
 			window.addEventListener('resize', tinggi_isi);
+			if (this.$route.params.slug){
+				fetch(`${api}/kode.php/baca/${this.$route.params.slug}`).then(x => x.json()).then(data => this.kode = data);
+			} else {
+				this.kode = '';
+			}
 		}
 	}
 </script>

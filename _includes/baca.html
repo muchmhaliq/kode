@@ -4,6 +4,9 @@
 			<input type="text" class="form-control" readonly="" v-model='link' name="">
 		</div>
 		<pre><code v-text='kode'></code></pre>
+		<p>
+			<router-link :to='"/" + $route.params.slug + "/edit"' class='btn btn-warning'>Edit</router-link>
+		</p>
 	</div>
 </template>
 <script type="text/javascript">
