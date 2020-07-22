@@ -1,0 +1,22 @@
+<template id="beranda">
+	<div>
+		<form>
+			<div class="form-group">
+				<textarea class="form-control isi" placeholder="Masukkan kodemu"></textarea>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Submit" class="btn btn-success" name="">
+			</div>
+		</form>
+	</div>
+</template>
+<script type="text/javascript">
+	beranda = {
+		template: '#beranda',
+		mounted(){
+			tinggi_isi = () => document.querySelector('.isi').style.height = window.innerHeight - 100 + 'px';
+			tinggi_isi();
+			window.addEventListener('resize', tinggi_isi);
+		}
+	}
+</script>
